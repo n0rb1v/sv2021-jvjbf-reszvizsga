@@ -1,5 +1,8 @@
 package cinema;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cinema")
+@Tag(name = "Operations on movies")
 public class MovieController {
     private MovieService movieService;
 
@@ -23,6 +27,8 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "creates movie")
+    @ApiResponse(responseCode = "201", description = "movie created")
     public MovieDTO createInstrument(@Valid @RequestBody CreateMovieCommand command) {
         return movieService.createMovie(command);
     }
